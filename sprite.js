@@ -10,11 +10,11 @@ export default class Sprite {
 
   static render() {
     const render = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      Sprite.canvas.width = window.innerWidth;
+      Sprite.canvas.height = window.innerHeight;
 
-      deltaTime = Math.min(Date.now() - lastTime, 1000) / 1000;
-      lastTime = Date.now();
+      Sprite.deltaTime = Math.min(Date.now() - Sprite.#lastTime, 1000) / 1000;
+      Sprite.#lastTime = Date.now();
 
 
       requestAnimationFrame(render);
