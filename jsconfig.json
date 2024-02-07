@@ -3,6 +3,9 @@
     "target": "ES2022",
     "module": "ES2022",
 
-    "checkJs": true
+    "checkJs": true,
+
+    "noImplicitAny": true,
+    "strict": true
   }
 }

@@ -8,6 +8,10 @@ export default class Sprite {
   static deltaTime = 0;
 
 
+  /** @type {Sprite[]} */
+  static #sprites = [];
+
+
   static render() {
     const render = () => {
       Sprite.canvas.width = window.innerWidth;
@@ -17,8 +21,50 @@ export default class Sprite {
       Sprite.#lastTime = Date.now();
 
 
+      for (const sprite of Sprite.#sprites) {
+        sprite.render();
+      }
+
+
       requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
+  }
+
+
+  /**
+   * @param {number} x 
+   * @param {number} y 
+   */
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+    this.velocityX = 0;
+    this.velocityY = 0;
+
+
+    Sprite.#sprites.push(this);
+  }
+
+
+  render() {
+    this.physics();
+    this.draw();
+  }
+
+  physics() {
+    this.x += this.velocityX * Sprite.deltaTime;
+    this.y += this.velocityY * Sprite.deltaTime;
+  }
+  draw() {
+    Sprite.ctx.save();
+
+    Sprite.ctx.translate(this.x, this.y);
+    Sprite.ctx.fillStyle = "gray";
+
+    Sprite.ctx.fillRect(-50, -50, 100, 100);
+
+    Sprite.ctx.restore();
   }
 }
