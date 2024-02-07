@@ -7,17 +7,28 @@ const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d", {
 }));
 
 
+let deltaTime = 0;
+let lastTime = Date.now();
+
+
+let x = 0;
+
+
 const draw = () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  deltaTime = Math.min(Date.now() - lastTime, 1000) / 1000;
+  lastTime = Date.now();
+
 
   ctx.fillStyle = "blue";
-  ctx.fillRect(50, 50, canvas.width - 100, canvas.height - 100);
+
+
+  ctx.fillRect(x += 100 * deltaTime, canvas.height / 2 - 50, 100, 100);
+
 
 
   requestAnimationFrame(draw);
 }
-
-
-draw();
+requestAnimationFrame(draw);
