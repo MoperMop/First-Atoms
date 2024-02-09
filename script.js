@@ -1,8 +1,9 @@
-import Particle from "./sprite.js";
+import Particle from "./particle.js";
+import Proton from "./proton.js";
 
 
-const sprite = new Particle(100, 100, 50, "red", "+");
-sprite.velocityX = 100;
+const p = new Proton(100, 100);
+p.velocityX = 100
 
 
 Particle.render();
