@@ -37,8 +37,9 @@ export default class Particle {
    * @param {number} y 
    * @param {number} size
    * @param {string} color
+   * @param {string} text
    */
-  constructor(x, y, size, color = "gray") {
+  constructor(x, y, size, color = "gray", text = "") {
     this.x = x;
     this.y = y;
 
@@ -50,6 +51,8 @@ export default class Particle {
 
 
     this.color = color;
+
+    this.text = text;
 
 
     Particle.#particles.push(this);
@@ -69,11 +72,27 @@ export default class Particle {
     ctx.save();
 
     ctx.translate(this.x, this.y);
-    ctx.fillStyle = this.color;
 
+
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(0, 0, this.size, 0, 2 * Math.PI);
     ctx.fill();
+
+
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = `${this.size * 2}px Arial`;
+
+    const m = ctx.measureText(this.text);
+    ctx.fillText(
+      this.text,
+      0,
+      (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2,
+      this.size * 2,
+    );
+
 
     ctx.restore();
   }
