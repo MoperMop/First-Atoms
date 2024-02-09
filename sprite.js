@@ -1,27 +1,27 @@
-export default class Sprite {
+export default class Particle {
   static canvas = /** @type {HTMLCanvasElement} */
     (document.querySelector("canvas"));
   static ctx = /** @type {CanvasRenderingContext2D} */
-    (Sprite.canvas.getContext("2d"));
+    (Particle.canvas.getContext("2d"));
 
   static #lastTime = Date.now();
   static deltaTime = 0;
 
 
-  /** @type {Sprite[]} */
-  static #sprites = [];
+  /** @type {Particle[]} */
+  static #particles = [];
 
 
   static render() {
     const render = () => {
-      Sprite.canvas.width = window.innerWidth;
-      Sprite.canvas.height = window.innerHeight;
+      Particle.canvas.width = window.innerWidth;
+      Particle.canvas.height = window.innerHeight;
 
-      Sprite.deltaTime = Math.min(Date.now() - Sprite.#lastTime, 1000) / 1000;
-      Sprite.#lastTime = Date.now();
+      Particle.deltaTime = Math.min(Date.now() - Particle.#lastTime, 1000) / 1000;
+      Particle.#lastTime = Date.now();
 
 
-      for (const sprite of Sprite.#sprites) {
+      for (const sprite of Particle.#particles) {
         sprite.render();
       }
 
@@ -35,8 +35,10 @@ export default class Sprite {
   /**
    * @param {number} x 
    * @param {number} y 
+   * @param {number} size
+   * @param {string} color
    */
-  constructor(x, y) {
+  constructor(x, y, size, color = "gray") {
     this.x = x;
     this.y = y;
 
@@ -44,7 +46,13 @@ export default class Sprite {
     this.velocityY = 0;
 
 
-    Sprite.#sprites.push(this);
+    this.size = size;
+
+
+    this.color = color;
+
+
+    Particle.#particles.push(this);
   }
 
 
@@ -54,17 +62,22 @@ export default class Sprite {
   }
 
   physics() {
-    this.x += this.velocityX * Sprite.deltaTime;
-    this.y += this.velocityY * Sprite.deltaTime;
+    this.x += this.velocityX * Particle.deltaTime;
+    this.y += this.velocityY * Particle.deltaTime;
   }
   draw() {
-    Sprite.ctx.save();
+    ctx.save();
 
-    Sprite.ctx.translate(this.x, this.y);
-    Sprite.ctx.fillStyle = "gray";
+    ctx.translate(this.x, this.y);
+    ctx.fillStyle = this.color;
 
-    Sprite.ctx.fillRect(-50, -50, 100, 100);
+    ctx.beginPath();
+    ctx.arc(0, 0, this.size, 0, 2 * Math.PI);
+    ctx.fill();
 
-    Sprite.ctx.restore();
+    ctx.restore();
   }
 }
+
+
+const ctx = Particle.ctx;

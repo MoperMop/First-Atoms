@@ -1,8 +1,8 @@
-import Sprite from "./sprite.js";
+import Particle from "./sprite.js";
 
 
-const sprite = new Sprite(100, 100);
+const sprite = new Particle(100, 100, 50, "blue");
 sprite.velocityX = 100;
 
 
-Sprite.render();
+Particle.render();
