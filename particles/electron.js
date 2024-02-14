@@ -1,13 +1,12 @@
 import Particle from "./particle.js";
 
 
-const ctx = Particle.ctx;
-export default class Proton extends Particle {
+export default class Electron extends Particle {
   /**
    * @param {number} x
    * @param {number} y
    */
   constructor(x, y) {
-    super(x, y, 15, "red", "+");
+    super(x, y, 10, "yellow", "-");
   }
 }
