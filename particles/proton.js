@@ -8,6 +8,6 @@ export default class Proton extends Particle {
    * @param {number} y
    */
   constructor(x, y) {
-    super(x, y, 30, "red", "+");
+    super(x, y, 25, "red", "+");
   }
 }
