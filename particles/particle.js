@@ -35,24 +35,13 @@ export default class Particle {
   /**
    * @param {number} x 
    * @param {number} y 
-   * @param {number} size
-   * @param {string} color
-   * @param {string} text
    */
-  constructor(x, y, size, color = "gray", text = "") {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
 
     this.velocityX = 0;
     this.velocityY = 0;
-
-
-    this.size = size;
-
-
-    this.color = color;
-
-    this.text = text;
 
 
     Particle.#particles.push(this);
@@ -68,34 +57,60 @@ export default class Particle {
     this.x += this.velocityX * Particle.deltaTime;
     this.y += this.velocityY * Particle.deltaTime;
   }
-  draw() {
+  draw() {}
+
+
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {number} size
+   * @param {string} color
+   * @param {string} text
+   */
+  static #draw(x, y, size, color, text = "") {
     ctx.save();
 
-    ctx.translate(this.x, this.y);
+    ctx.translate(x, y);
 
 
-    ctx.fillStyle = this.color;
+    ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(0, 0, this.size, 0, 2 * Math.PI);
+    ctx.arc(0, 0, size, 0, 2 * Math.PI);
     ctx.fill();
 
 
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `${this.size * 2}px Arial`;
+    ctx.font = `${size * 2}px Arial`;
 
-    const m = ctx.measureText(this.text);
+    const m = ctx.measureText(text);
     ctx.fillText(
-      this.text,
+      text,
       0,
       (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2,
-      this.size * 2,
+      size * 2,
     );
 
 
     ctx.restore();
   }
+
+  /**
+   * @param {number} x
+   * @param {number} y
+   */
+  static drawProton(x, y) { this.#draw(x, y, 25, "red", "+"); }
+  /**
+   * @param {number} x
+   * @param {number} y
+   */
+  static drawNeutron(x, y) { this.#draw(x, y, 25, "blue"); }
+  /**
+   * @param {number} x
+   * @param {number} y
+   */
+  static drawElectron(x, y) { this.#draw(x, y, 10, "yellow", "-"); }
 }
 
 
