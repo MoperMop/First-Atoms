@@ -25,14 +25,9 @@ export default class Particle {
         particle.render();
 
 
-        if (particle.charge === 0) return;
-
         for (const other of Particle.#particles.slice(index + 1)) {
-          if (other.charge === 0) continue;
-
-
           const strength =
-            1000 * Particle.deltaTime *
+            50000 * Particle.deltaTime *
             -particle.charge * other.charge *
             ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5;
 

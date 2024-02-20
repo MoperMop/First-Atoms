@@ -6,11 +6,12 @@ import Hydrogen from "./particles/hydrogen.js";
 import Helium from "./particles/helium.js";
 
 
-new Helium(300, 100).velocityRotation = Math.PI / 2;
-new Hydrogen(100, 100);
-new Hydrogen(100, 200);
-new Electron(200, 100);
-new Electron(200, 200);
+const v = Math.random() * 100 + 200;
+const d = (Math.random() - 0.5) * 100;
+const ed = (Math.random() - 0.5) * 100;
+new Helium(innerWidth / 2, innerHeight / 2).velocityY = d;
+new Electron(innerWidth / 2 + 200, innerHeight / 2).velocityY = v - d / 2 + ed;
+new Electron(innerWidth / 2 - 200, innerHeight / 2).velocityY = -v - d / 2 - ed;
 
 
 Particle.render();
