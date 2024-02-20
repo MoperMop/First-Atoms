@@ -12,8 +12,11 @@ export default class Particle {
   static #particles = [];
 
 
-  /** @param {() => void} [callback] */
-  static render(callback) {
+  /**
+   * @param {() => void} [eachFrame]
+   * @param {(particle: Particle) => void} [eachParticle]
+   */
+  static render(eachFrame, eachParticle) {
     const render = () => {
       Particle.canvas.width = window.innerWidth;
       Particle.canvas.height = window.innerHeight;
@@ -28,7 +31,7 @@ export default class Particle {
 
         for (const other of Particle.#particles.slice(index + 1)) {
           const strength =
-            3000 * Particle.deltaTime *
+            20000 * Particle.deltaTime *
             -particle.charge * other.charge *
             ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5;
 
@@ -40,10 +43,13 @@ export default class Particle {
           particle.velocityY -= strength * direction[1];
           other.velocityY += strength * direction[1];
         }
+
+
+        eachParticle?.(particle);
       });
 
 
-      callback?.();
+      eachFrame?.();
 
 
       requestAnimationFrame(render);
@@ -69,6 +75,13 @@ export default class Particle {
 
 
     Particle.#particles.push(this);
+  }
+
+  remove() {
+    Particle.#particles.splice(
+      Particle.#particles.findIndex(p => p === this),
+      1,
+    );
   }
 
 

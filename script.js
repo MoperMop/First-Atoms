@@ -14,8 +14,12 @@ Particle.render(() => {
 
     /** @type {[number, number]} */
     const pos = [0, 0];
+
+    const power = Math.random() * 100 + 1000;
+    const angle = Math.random() * Math.PI * 2;
     /** @type {[number, number]} */
-    const v = [(Math.random() - 0.5) * 1000, (Math.random() - 0.5) * 1000];
+    const v = [Math.sin(angle) * power, Math.cos(angle) * power];
+
     switch (Math.floor(Math.random() * 4)) {
       case 0:
         pos[0] = -50;
@@ -43,14 +47,19 @@ Particle.render(() => {
         break;
     }
 
+
     /** @type {Particle?} */
     let p = null;
-    switch (/** @type {0 | 1 | 2}*/ (Math.floor(Math.random() * 3))) {
-      case 0: p = new Electron(...pos); break;
-      case 1: p = new Hydrogen(...pos); break;
-      case 2: p = new Helium(...pos); break;
-    }
+    if (Math.random() < 0.5) p = new Electron(...pos);
+    else if (Math.random() < 0.9) p = new Hydrogen(...pos);
+    else p = new Helium(...pos);
+
     p.velocityX = v[0];
     p.velocityY = v[1];
+  }
+}, (p) => {
+  if (p.x < -50 || p.x > innerWidth + 50 || p.y < -50 || p.y > innerHeight + 50) {
+    p.remove();
+    ps--;
   }
 });
