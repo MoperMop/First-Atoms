@@ -21,9 +21,30 @@ export default class Particle {
       Particle.#lastTime = Date.now();
 
 
-      for (const sprite of Particle.#particles) {
-        sprite.render();
-      }
+      Particle.#particles.forEach((particle, index) => {
+        particle.render();
+
+
+        if (particle.charge === 0) return;
+
+        for (const other of Particle.#particles.slice(index + 1)) {
+          if (other.charge === 0) continue;
+
+
+          const strength =
+            1000 * Particle.deltaTime *
+            -particle.charge * other.charge *
+            ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5;
+
+          const direction = [particle.x - other.x, particle.y - other.y]
+            .map((value, _, arr) => value / (arr[0] ** 2 + arr[1] ** 2) ** 0.5);
+
+          particle.velocityX -= strength * direction[0];
+          other.velocityX += strength * direction[0];
+          particle.velocityY -= strength * direction[1];
+          other.velocityY += strength * direction[1];
+        }
+      });
 
 
       requestAnimationFrame(render);
@@ -35,13 +56,17 @@ export default class Particle {
   /**
    * @param {number} x 
    * @param {number} y 
+   * @param {number} [charge]
    */
-  constructor(x, y) {
+  constructor(x, y, charge = 0) {
     this.x = x;
     this.y = y;
 
     this.velocityX = 0;
     this.velocityY = 0;
+
+
+    this.charge = charge;
 
 
     Particle.#particles.push(this);

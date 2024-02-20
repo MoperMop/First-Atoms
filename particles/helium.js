@@ -8,7 +8,7 @@ export default class Helium extends Particle {
    * @param {number} [rotation]
    */
   constructor(x, y, rotation = 0) {
-    super(x, y);
+    super(x, y, 2);
 
 
     this.rotation = rotation;
