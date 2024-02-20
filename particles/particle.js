@@ -12,7 +12,8 @@ export default class Particle {
   static #particles = [];
 
 
-  static render() {
+  /** @param {() => void} [callback] */
+  static render(callback) {
     const render = () => {
       Particle.canvas.width = window.innerWidth;
       Particle.canvas.height = window.innerHeight;
@@ -27,7 +28,7 @@ export default class Particle {
 
         for (const other of Particle.#particles.slice(index + 1)) {
           const strength =
-            50000 * Particle.deltaTime *
+            3000 * Particle.deltaTime *
             -particle.charge * other.charge *
             ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5;
 
@@ -40,6 +41,9 @@ export default class Particle {
           other.velocityY += strength * direction[1];
         }
       });
+
+
+      callback?.();
 
 
       requestAnimationFrame(render);
@@ -120,17 +124,17 @@ export default class Particle {
    * @param {number} x
    * @param {number} y
    */
-  static drawProton(x, y) { this.#draw(x, y, 25, "red", "+"); }
+  static drawProton(x, y) { this.#draw(x, y, 10, "red", "+"); }
   /**
    * @param {number} x
    * @param {number} y
    */
-  static drawNeutron(x, y) { this.#draw(x, y, 25, "blue"); }
+  static drawNeutron(x, y) { this.#draw(x, y, 10, "blue"); }
   /**
    * @param {number} x
    * @param {number} y
    */
-  static drawElectron(x, y) { this.#draw(x, y, 10, "yellow", "-"); }
+  static drawElectron(x, y) { this.#draw(x, y, 5, "yellow", "-"); }
 }
 
 

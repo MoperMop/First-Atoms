@@ -37,8 +37,8 @@ export default class Helium extends Particle {
   draw() {
     for (let i = 0; i < 4; i++) {
       const pos = /** @type {const} */ ([
-        Math.sin(i * Math.PI / 2 + this.rotation) * 25 + this.x,
-        Math.cos(i * Math.PI / 2 + this.rotation) * 25 + this.y,
+        Math.sin(i * Math.PI / 2 + this.rotation) * 10 + this.x,
+        Math.cos(i * Math.PI / 2 + this.rotation) * 10 + this.y,
       ]);
 
       if (this.#particles[i] === "proton") Particle.drawProton(...pos);
