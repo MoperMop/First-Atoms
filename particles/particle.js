@@ -38,7 +38,7 @@ export default class Particle {
 
         for (const other of Particle.#particles.slice(index + 1)) {
           const strength = Math.min(
-            20000 * Particle.deltaTime *
+            15000 * Particle.deltaTime *
               -particle.charge * other.charge *
               ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5,
             50,
