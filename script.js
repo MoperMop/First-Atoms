@@ -6,6 +6,9 @@ import Hydrogen from "./particles/hydrogen.js";
 import Helium from "./particles/helium.js";
 
 
+const temp = /** @type {HTMLInputElement} */ (document.querySelector("input"));
+
+
 let ps = 0;
 Particle.render(() => {
   while (ps < innerWidth * innerHeight / 50000) {
@@ -15,7 +18,7 @@ Particle.render(() => {
     /** @type {[number, number]} */
     const pos = [0, 0];
 
-    const power = Math.random() * 100 + 100;
+    const power = (Math.random() - 0.5) * 100 + temp.valueAsNumber;
     const angle = Math.random() * Math.PI * 2;
     /** @type {[number, number]} */
     const v = [Math.sin(angle) * power, Math.cos(angle) * power];

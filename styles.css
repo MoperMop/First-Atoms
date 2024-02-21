@@ -16,3 +16,23 @@ canvas {
 
   object-fit: none;
 }
+
+
+label {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-end: 10px;
+
+  translate: -50% 0;
+
+  max-inline-size: calc(100% - 20px);
+  inline-size: 400px;
+
+
+  color: white;
+
+
+  > input {
+    inline-size: 100%;
+  }
+}

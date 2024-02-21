@@ -6,7 +6,7 @@ export default class Electron extends Particle {
    * @param {number} x
    * @param {number} y
    */
-  constructor(x, y) { super(x, y, -1); }
+  constructor(x, y) { super(x, y, -1, 1 / 5); }
 
 
   draw() { Particle.drawElectron(this.x, this.y); }
