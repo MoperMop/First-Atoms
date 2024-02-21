@@ -18,8 +18,15 @@ export default class Particle {
    */
   static render(eachFrame, eachParticle) {
     const render = () => {
-      Particle.canvas.width = window.innerWidth;
-      Particle.canvas.height = window.innerHeight;
+      if (
+        Particle.canvas.width !== window.innerWidth ||
+        Particle.canvas.height !== window.innerHeight
+      ) {
+        Particle.canvas.width = window.innerWidth;
+        Particle.canvas.height = window.innerHeight;
+      } else {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      }
 
       Particle.deltaTime = Math.min(Date.now() - Particle.#lastTime, 1000) / 1000;
       Particle.#lastTime = Date.now();
@@ -30,10 +37,12 @@ export default class Particle {
 
 
         for (const other of Particle.#particles.slice(index + 1)) {
-          const strength =
+          const strength = Math.min(
             20000 * Particle.deltaTime *
-            -particle.charge * other.charge *
-            ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5;
+              -particle.charge * other.charge *
+              ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5,
+            50,
+          );
 
           const direction = [particle.x - other.x, particle.y - other.y]
             .map((value, _, arr) => value / (arr[0] ** 2 + arr[1] ** 2) ** 0.5);
