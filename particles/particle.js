@@ -2,7 +2,7 @@ export default class Particle {
   static canvas = /** @type {HTMLCanvasElement} */
     (document.querySelector("canvas"));
   static ctx = /** @type {CanvasRenderingContext2D} */
-    (Particle.canvas.getContext("2d"));
+    (Particle.canvas.getContext("2d", { alpha: false }));
 
   static #lastTime = Date.now();
   static deltaTime = 0;
