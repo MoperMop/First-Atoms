@@ -41,7 +41,7 @@ export default class Particle {
             15000 * Particle.deltaTime *
               -particle.charge * other.charge *
               ((particle.x - other.x) ** 2 + (particle.y - other.y) ** 2) ** -0.5,
-            50,
+            20,
           );
 
           const direction = [particle.x - other.x, particle.y - other.y]
