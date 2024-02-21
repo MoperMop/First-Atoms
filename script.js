@@ -15,7 +15,7 @@ Particle.render(() => {
     /** @type {[number, number]} */
     const pos = [0, 0];
 
-    const power = Math.random() * 100 + 1000;
+    const power = Math.random() * 100 + 100;
     const angle = Math.random() * Math.PI * 2;
     /** @type {[number, number]} */
     const v = [Math.sin(angle) * power, Math.cos(angle) * power];

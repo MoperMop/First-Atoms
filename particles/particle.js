@@ -38,10 +38,10 @@ export default class Particle {
           const direction = [particle.x - other.x, particle.y - other.y]
             .map((value, _, arr) => value / (arr[0] ** 2 + arr[1] ** 2) ** 0.5);
 
-          particle.velocityX -= strength * direction[0];
-          other.velocityX += strength * direction[0];
-          particle.velocityY -= strength * direction[1];
-          other.velocityY += strength * direction[1];
+          particle.velocityX -= strength / particle.mass * direction[0];
+          other.velocityX += strength / other.mass * direction[0];
+          particle.velocityY -= strength / particle.mass * direction[1];
+          other.velocityY += strength / other.mass * direction[1];
         }
 
 
@@ -62,8 +62,9 @@ export default class Particle {
    * @param {number} x 
    * @param {number} y 
    * @param {number} [charge]
+   * @param {number} [mass]
    */
-  constructor(x, y, charge = 0) {
+  constructor(x, y, charge = 0, mass = 1) {
     this.x = x;
     this.y = y;
 
@@ -72,6 +73,7 @@ export default class Particle {
 
 
     this.charge = charge;
+    this.mass = mass;
 
 
     Particle.#particles.push(this);
